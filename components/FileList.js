@@ -63,7 +63,15 @@ export default function FileList(props) {
 
             <div className="flex" style={{justifyContent: "space-between"}}>
                 <div>{paginationItems.map(x =>
-                    <span key={x} onClick={onCurrentPageChangeFunc(x)} style={{marginRight: 5}}>{x}</span>
+                    <span
+                        key={x}
+                        onClick={onCurrentPageChangeFunc(x)}
+                        style={{
+                            marginRight: 5,
+                            cursor: "pointer",
+                            color: x === currentPage ? "black" : "blue"
+                        }}
+                    >{x}</span>
                 )}</div>
                 <div>
                     Items on page:&nbsp;
