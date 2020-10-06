@@ -1,7 +1,8 @@
 import React from "react";
-import fetch from "isomorphic-unfetch";
-import FileList from "../../components/FileList";
+
+import FileList, {DEFAULT_PAGINATION_VALUE} from "../../components/FileList";
 import FilesPage from "../../components/FilesPage";
+import {FilesApi} from "../../api/FilesApi";
 
 const FileListPage = ({ files }) => {
   return (
@@ -12,9 +13,8 @@ const FileListPage = ({ files }) => {
 };
 
 FileListPage.getInitialProps = async () => {
-  const resp = await fetch("http://interview-api.snackable.ai/api/file/all");
-  const json = await resp.json();
-  return { files: json };
+  const files = await FilesApi.getAllFiles(DEFAULT_PAGINATION_VALUE);
+  return { files: files };
 };
 
 export default FileListPage;
