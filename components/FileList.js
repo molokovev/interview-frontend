@@ -6,11 +6,17 @@ export const DEFAULT_PAGINATION_VALUE = 5;
 const MAX_PAGINATION_VALUE = DEFAULT_PAGINATION_VALUE;
 
 export default function FileList(props) {
+    const didMountRef = React.useRef(false)
     const [files, updateFiles] = React.useState(props.files);
     const [itemsOnPage, updateItemsOnPage] = React.useState(DEFAULT_PAGINATION_VALUE);
     const [currentPage, updateCurrentPage] = React.useState(1);
 
     React.useEffect(() => {
+        if (!didMountRef.current) {
+            didMountRef.current = true;
+            return;
+        }
+
         const fetch = async () => {
             const res = await FilesApi.getAllFiles(itemsOnPage, currentPage);
             updateFiles(res)
